@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Tesla Investment | Create Account</title>
+  
+  <!-- Font Awesome 6 Pro Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --tesla-red: #E82127;
+      --gold: #C8A96E;
+      --gradient-red: linear-gradient(135deg, #E82127 0%, #B8151A 100%);
+      --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      font-family: 'Inter', sans-serif;
+      background: #0A0B0E;
+      color: #FFFFFF;
+      width: 100%;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      background: radial-gradient(circle at 20% 30%, rgba(232,33,39,0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 70%, rgba(200,169,110,0.05) 0%, transparent 50%),
+                  #0A0B0E;
+    }
+
+    input {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+
+    /* Full screen layout */
+    .signup-screen {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 50px 20px 20px 20px;
+      background: transparent;
+    }
+
+    .signup-content {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Logo */
+    .logo-area {
+      text-align: center;
+      margin-bottom: 2px;
+    }
+
+    .logo-svg {
+      width: 42px;
+      height: 42px;
+      filter: drop-shadow(0 0 18px rgba(232,33,39,0.6));
+      margin-bottom: 8px;
+    }
+
+    .logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text span {
+      color: var(--tesla-red);
+    }
+
+    .page-title {
+      color: #FFFFFF;
+      font-size: 20px;
+      font-weight: 700;
+      text-align: center;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .page-description {
+      color: #8B8F96;
+      font-size: 13px;
+      text-align: center;
+      margin-top: -6px;
+    }
+
+    /* Form */
+    .form-group {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #B0B3B8;
+      margin-bottom: 6px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 16px;
+      color: #6B6F76;
+      font-size: 15px;
+      transition: var(--transition);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 14px 18px 14px 48px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      color: #FFFFFF;
+      outline: none;
+      transition: var(--transition);
+      letter-spacing: 0.3px;
+    }
+
+    .form-control::placeholder {
+      color: #5A5E66;
+      font-weight: 400;
+    }
+
+    .form-control:focus {
+      border-color: var(--tesla-red);
+      background: rgba(232, 33, 39, 0.05);
+      box-shadow: 0 0 0 4px rgba(232, 33, 39, 0.08);
+    }
+
+    .input-wrapper:focus-within i {
+      color: var(--tesla-red);
+    }
+
+    /* Password toggle */
+    .toggle-password {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #6B6F76;
+      cursor: pointer;
+      font-size: 15px;
+      padding: 6px;
+      transition: var(--transition);
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      line-height: 1;
+    }
+
+    .toggle-password:hover {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* Error message */
+    .error-message {
+      color: #FF6B70;
+      font-size: 11px;
+      margin-top: 5px;
+      padding-left: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 18px;
+      line-height: 1.2;
+    }
+
+    .error-message i {
+      font-size: 10px;
+    }
+
+    /* Success message */
+    .success-message {
+      background: rgba(0, 200, 83, 0.1);
+      border: 1px solid rgba(0, 200, 83, 0.3);
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-size: 13px;
+      color: #00C853;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    /* Terms */
+    .terms-text {
+      text-align: center;
+      color: #8B8F96;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .terms-text a {
+      color: var(--tesla-red);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .terms-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* Buttons */
+    .btn {
+      width: 100%;
+      padding: 15px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-primary {
+      background: var(--gradient-red);
+      color: #FFFFFF;
+      box-shadow: 0 10px 25px rgba(232, 33, 39, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(232, 33, 39, 0.55);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Sign in link */
+    .signin-link {
+      text-align: center;
+      color: #8B8F96;
+      font-size: 13px;
+    }
+
+    .signin-link a {
+      color: var(--tesla-red);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .signin-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Spinner */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #FFFFFF;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+      .signup-screen {
+        padding: 35px 16px 20px 16px;
+      }
+
+      .signup-content {
+        max-width: 100%;
+        gap: 14px;
+      }
+
+      .logo-svg {
+        width: 36px;
+        height: 36px;
+      }
+
+      .logo-text {
+        font-size: 24px;
+      }
+
+      .page-title {
+        font-size: 18px;
+      }
+
+      .form-control {
+        padding: 13px 16px 13px 42px;
+        font-size: 13px;
+      }
+
+      .btn {
+        padding: 14px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .signup-screen {
+        padding: 25px 12px 16px 12px;
+      }
+
+      .signup-content {
+        gap: 12px;
+      }
+
+      .form-control {
+        padding: 12px 14px 12px 38px;
+        font-size: 12px;
+        border-radius: 12px;
+      }
+
+      .btn {
+        padding: 13px;
+        font-size: 12px;
+        border-radius: 12px;
+      }
+
+      .logo-text {
+        font-size: 20px;
+      }
+
+      .logo-svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .signup-screen {
+        padding: 70px 20px 20px 20px;
+      }
+
+      .signup-content {
+        gap: 20px;
+      }
+    }
+
+    /* Animation */
+    .fade-in-up {
+      animation: fadeInUp 0.7s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-screen">
+    <div class="signup-content fade-in-up">
+      
+      <!-- Logo -->
+      <div class="logo-area">
+        <svg class="logo-svg" viewBox="0 0 40 40" fill="none">
+          <defs>
+            <linearGradient id="signupLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#E82127"/>
+              <stop offset="100%" style="stop-color:#B8151A"/>
+            </linearGradient>
+          </defs>
+          <path d="M20 2L37 34H3L20 2Z" fill="url(#signupLogoGrad)"/>
+          <path d="M20 8L31 30H9L20 8Z" fill="#FFFFFF"/>
+        </svg>
+        <div class="logo-text">TESLA<span>.</span></div>
+      </div>
+
+      <!-- Title -->
+      <h2 class="page-title">Create Your Account</h2>
+      <p class="page-description">Join the elite investors and start building your portfolio</p>
+
+      <!-- Success Message -->
+      <div class="success-message" id="successMessage" style="display: none;">
+        <i class="fas fa-check-circle"></i>
+        <span>Account created successfully! Redirecting to sign in...</span>
+      </div>
+
+      <!-- Signup Form -->
+      <form id="signupForm" novalidate>
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <div class="input-wrapper">
+            <i class="fas fa-user"></i>
+            <input 
+              type="text" 
+              id="fullName" 
+              class="form-control" 
+              placeholder="John Doe" 
+              required 
+              autocomplete="name"
+              spellcheck="false"
+            >
+          </div>
+          <div class="error-message" id="nameError"></div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope"></i>
+            <input 
+              type="email" 
+              id="email" 
+              class="form-control" 
+              placeholder="you@example.com" 
+              required 
+              autocomplete="email"
+              spellcheck="false"
+            >
+          </div>
+          <div class="error-message" id="emailError"></div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input 
+              type="password" 
+              id="password" 
+              class="form-control" 
+              placeholder="••••••••" 
+              required 
+              autocomplete="new-password"
+              minlength="6"
+            >
+            <button type="button" class="toggle-password" id="togglePassword" tabindex="-1" aria-label="Toggle password visibility">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <div class="error-message" id="passwordError"></div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input 
+              type="password" 
+              id="confirmPassword" 
+              class="form-control" 
+              placeholder="••••••••" 
+              required 
+              autocomplete="new-password"
+              minlength="6"
+            >
+            <button type="button" class="toggle-password" id="toggleConfirmPassword" tabindex="-1" aria-label="Toggle password visibility">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <div class="error-message" id="confirmPasswordError"></div>
+        </div>
+
+        <!-- Terms -->
+        <p class="terms-text">
+          By creating an account, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+        </p>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+      </form>
+
+      <!-- Sign in link -->
+      <p class="signin-link">
+        Already have an account? <a href="login.html">Sign In</a>
+      </p>
+
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // Toggle password visibility for both password fields
+      function setupToggle(toggleBtnId, inputId) {
+        const toggleBtn = document.getElementById(toggleBtnId);
+        const input = document.getElementById(inputId);
+        if (toggleBtn && input) {
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const icon = this.querySelector('i');
+            if (input.type === 'password') {
+              input.type = 'text';
+              icon.classList.remove('fa-eye');
+              icon.classList.add('fa-eye-slash');
+            } else {
+              input.type = 'password';
+              icon.classList.remove('fa-eye-slash');
+              icon.classList.add('fa-eye');
+            }
+          });
+        }
+      }
+
+      setupToggle('togglePassword', 'password');
+      setupToggle('toggleConfirmPassword', 'confirmPassword');
+
+      const signupForm = document.getElementById('signupForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const successMessage = document.getElementById('successMessage');
+      
+      const fullNameInput = document.getElementById('fullName');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordInput = document.getElementById('confirmPassword');
+      
+      const nameError = document.getElementById('nameError');
+      const emailError = document.getElementById('emailError');
+      const passwordError = document.getElementById('passwordError');
+      const confirmPasswordError = document.getElementById('confirmPasswordError');
+      
+      // Clear errors on input
+      if (fullNameInput) fullNameInput.addEventListener('input', () => { if (nameError) nameError.innerHTML = ''; });
+      if (emailInput) emailInput.addEventListener('input', () => { if (emailError) emailError.innerHTML = ''; });
+      if (passwordInput) passwordInput.addEventListener('input', () => { if (passwordError) passwordError.innerHTML = ''; });
+      if (confirmPasswordInput) confirmPasswordInput.addEventListener('input', () => { if (confirmPasswordError) confirmPasswordError.innerHTML = ''; });
+      
+      if (signupForm) {
+        signupForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Clear all errors and success
+          if (nameError) nameError.innerHTML = '';
+          if (emailError) emailError.innerHTML = '';
+          if (passwordError) passwordError.innerHTML = '';
+          if (confirmPasswordError) confirmPasswordError.innerHTML = '';
+          if (successMessage) successMessage.style.display = 'none';
+          
+          const fullName = fullNameInput ? fullNameInput.value.trim() : '';
+          const email = emailInput ? emailInput.value.trim() : '';
+          const password = passwordInput ? passwordInput.value : '';
+          const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : '';
+          
+          let hasError = false;
+          
+          // Validate name
+          if (!fullName) {
+            if (nameError) nameError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Full name is required';
+            hasError = true;
+          } else if (fullName.length < 2) {
+            if (nameError) nameError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Name must be at least 2 characters';
+            hasError = true;
+          }
+          
+          // Validate email
+          if (!email) {
+            if (emailError) emailError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Email is required';
+            hasError = true;
+          } else if (!isValidEmail(email)) {
+            if (emailError) emailError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid email';
+            hasError = true;
+          }
+          
+          // Validate password
+          if (!password) {
+            if (passwordError) passwordError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password is required';
+            hasError = true;
+          } else if (password.length < 6) {
+            if (passwordError) passwordError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must be at least 6 characters';
+            hasError = true;
+          }
+          
+          // Validate confirm password
+          if (!confirmPassword) {
+            if (confirmPasswordError) confirmPasswordError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please confirm your password';
+            hasError = true;
+          } else if (password !== confirmPassword) {
+            if (confirmPasswordError) confirmPasswordError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Passwords do not match';
+            hasError = true;
+          }
+          
+          if (hasError) return;
+          
+          // Simulate account creation
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span> Creating Account...';
+          }
+          
+          setTimeout(() => {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+            }
+            
+            // Show success message
+            if (successMessage) {
+              successMessage.style.display = 'flex';
+            }
+            
+            // Reset form
+            signupForm.reset();
+            
+            // Redirect to login after 2 seconds
+            setTimeout(() => {
+              window.location.href = 'login.html';
+            }, 2000);
+          }, 1500);
+        });
+      }
+      
+      function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+      
+      // Prevent form resubmission on refresh
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+    })();
+  </script>
+</body>
+</html>

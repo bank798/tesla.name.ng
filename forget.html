@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Tesla Investment | Forgot Password</title>
+  
+  <!-- Font Awesome 6 Pro Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --tesla-red: #E82127;
+      --gold: #C8A96E;
+      --gradient-red: linear-gradient(135deg, #E82127 0%, #B8151A 100%);
+      --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      font-family: 'Inter', sans-serif;
+      background: #0A0B0E;
+      color: #FFFFFF;
+      width: 100%;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      background: radial-gradient(circle at 20% 30%, rgba(232,33,39,0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 70%, rgba(200,169,110,0.05) 0%, transparent 50%),
+                  #0A0B0E;
+    }
+
+    input {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+
+    /* Full screen layout */
+    .forgot-screen {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 60px 20px 20px 20px;
+      background: transparent;
+    }
+
+    .forgot-content {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Logo */
+    .logo-area {
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .logo-svg {
+      width: 44px;
+      height: 44px;
+      filter: drop-shadow(0 0 18px rgba(232,33,39,0.6));
+      margin-bottom: 10px;
+    }
+
+    .logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text span {
+      color: var(--tesla-red);
+    }
+
+    .page-title {
+      color: #FFFFFF;
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 4px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .page-description {
+      color: #8B8F96;
+      font-size: 14px;
+      text-align: center;
+      margin-top: -8px;
+      line-height: 1.6;
+    }
+
+    /* Form */
+    .form-group {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #B0B3B8;
+      margin-bottom: 6px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 16px;
+      color: #6B6F76;
+      font-size: 16px;
+      transition: var(--transition);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 15px 18px 15px 50px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      color: #FFFFFF;
+      outline: none;
+      transition: var(--transition);
+      letter-spacing: 0.3px;
+    }
+
+    .form-control::placeholder {
+      color: #5A5E66;
+      font-weight: 400;
+    }
+
+    .form-control:focus {
+      border-color: var(--tesla-red);
+      background: rgba(232, 33, 39, 0.05);
+      box-shadow: 0 0 0 4px rgba(232, 33, 39, 0.08);
+    }
+
+    .input-wrapper:focus-within i {
+      color: var(--tesla-red);
+    }
+
+    /* Error message */
+    .error-message {
+      color: #FF6B70;
+      font-size: 12px;
+      margin-top: 6px;
+      padding-left: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 20px;
+      line-height: 1.2;
+    }
+
+    .error-message i {
+      font-size: 11px;
+    }
+
+    /* Success message */
+    .success-message {
+      background: rgba(0, 200, 83, 0.1);
+      border: 1px solid rgba(0, 200, 83, 0.3);
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-size: 14px;
+      color: #00C853;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      line-height: 1.5;
+      transition: all 0.3s ease;
+    }
+
+    .success-message i {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .success-message .email-highlight {
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    /* Buttons */
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-primary {
+      background: var(--gradient-red);
+      color: #FFFFFF;
+      box-shadow: 0 12px 30px rgba(232, 33, 39, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(232, 33, 39, 0.55);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #FFFFFF;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-outline:hover {
+      border-color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Spinner */
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #FFFFFF;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Back link */
+    .back-link {
+      text-align: center;
+      color: #8B8F96;
+      font-size: 14px;
+    }
+
+    .back-link a {
+      color: var(--tesla-red);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+      .forgot-screen {
+        padding: 40px 16px 20px 16px;
+      }
+
+      .forgot-content {
+        max-width: 100%;
+        gap: 16px;
+      }
+
+      .logo-svg {
+        width: 38px;
+        height: 38px;
+      }
+
+      .logo-text {
+        font-size: 26px;
+      }
+
+      .page-title {
+        font-size: 20px;
+      }
+
+      .form-control {
+        padding: 14px 16px 14px 44px;
+        font-size: 14px;
+      }
+
+      .btn {
+        padding: 15px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .forgot-screen {
+        padding: 30px 12px 16px 12px;
+      }
+
+      .forgot-content {
+        gap: 14px;
+      }
+
+      .form-control {
+        padding: 13px 14px 13px 40px;
+        font-size: 13px;
+        border-radius: 14px;
+      }
+
+      .btn {
+        padding: 14px;
+        font-size: 13px;
+        border-radius: 14px;
+      }
+
+      .logo-text {
+        font-size: 22px;
+      }
+
+      .logo-svg {
+        width: 34px;
+        height: 34px;
+      }
+
+      .page-title {
+        font-size: 18px;
+      }
+
+      .page-description {
+        font-size: 12px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .forgot-screen {
+        padding: 80px 20px 20px 20px;
+      }
+
+      .forgot-content {
+        gap: 22px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .forgot-screen {
+        padding: 100px 20px 20px 20px;
+      }
+    }
+
+    /* Animation */
+    .fade-in-up {
+      animation: fadeInUp 0.7s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="forgot-screen">
+    <div class="forgot-content fade-in-up">
+      
+      <!-- Logo -->
+      <div class="logo-area">
+        <svg class="logo-svg" viewBox="0 0 40 40" fill="none">
+          <defs>
+            <linearGradient id="forgotLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#E82127"/>
+              <stop offset="100%" style="stop-color:#B8151A"/>
+            </linearGradient>
+          </defs>
+          <path d="M20 2L37 34H3L20 2Z" fill="url(#forgotLogoGrad)"/>
+          <path d="M20 8L31 30H9L20 8Z" fill="#FFFFFF"/>
+        </svg>
+        <div class="logo-text">TESLA<span>.</span></div>
+      </div>
+
+      <!-- Title -->
+      <h2 class="page-title">Forgot Password</h2>
+      <p class="page-description">Enter your email address and we'll send you a link to reset your password.</p>
+
+      <!-- Success Message -->
+      <div class="success-message" id="successMessage" style="display: none;">
+        <i class="fas fa-check-circle"></i>
+        <span>A reset link has been sent to <span class="email-highlight" id="sentEmailDisplay"></span>. Please check your inbox and follow the instructions.</span>
+      </div>
+
+      <!-- Forgot Password Form -->
+      <form id="forgotForm" novalidate>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope"></i>
+            <input 
+              type="email" 
+              id="email" 
+              class="form-control" 
+              placeholder="you@example.com" 
+              required 
+              autocomplete="email"
+              spellcheck="false"
+            >
+          </div>
+          <div class="error-message" id="emailError"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+          <i class="fas fa-paper-plane"></i> Send Reset Link
+        </button>
+      </form>
+
+      <!-- Back to login -->
+      <p class="back-link">
+        <a href="login.html"><i class="fas fa-arrow-left"></i> Back to Sign In</a>
+      </p>
+
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const forgotForm = document.getElementById('forgotForm');
+      const emailInput = document.getElementById('email');
+      const emailError = document.getElementById('emailError');
+      const submitBtn = document.getElementById('submitBtn');
+      const successMessage = document.getElementById('successMessage');
+      const sentEmailDisplay = document.getElementById('sentEmailDisplay');
+      
+      // Clear error on input
+      if (emailInput) {
+        emailInput.addEventListener('input', function() {
+          if (emailError) emailError.innerHTML = '';
+        });
+      }
+      
+      if (forgotForm) {
+        forgotForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Clear previous states
+          if (emailError) emailError.innerHTML = '';
+          if (successMessage) successMessage.style.display = 'none';
+          
+          const email = emailInput ? emailInput.value.trim() : '';
+          
+          // Validate email
+          if (!email) {
+            if (emailError) emailError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Email is required';
+            return;
+          }
+          
+          if (!isValidEmail(email)) {
+            if (emailError) emailError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid email';
+            return;
+          }
+          
+          // Disable button and show spinner
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span> Sending...';
+          }
+          
+          // Simulate sending reset link with 3-second delay
+          setTimeout(() => {
+            // Enable button back
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reset Link';
+            }
+            
+            // Show success message with the email
+            if (sentEmailDisplay) {
+              sentEmailDisplay.textContent = email;
+            }
+            if (successMessage) {
+              successMessage.style.display = 'flex';
+            }
+            
+            // Clear the form
+            if (emailInput) {
+              emailInput.value = '';
+            }
+            
+          }, 3000);
+        });
+      }
+      
+      function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+      
+      // Prevent form resubmission on refresh
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+    })();
+  </script>
+</body>
+</html>
