@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Tesla Investment | Investment Success</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --tesla-red: #E82127;
+      --gold: #C8A96E;
+      --green: #00E676;
+      --gradient-red: linear-gradient(135deg, #E82127 0%, #B8151A 100%);
+      --gradient-green: linear-gradient(135deg, #00E676 0%, #00C853 100%);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif; background: #08090C; color: #FFFFFF;
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      -webkit-font-smoothing: antialiased;
+      background-image: radial-gradient(ellipse at 20% 20%, rgba(232,33,39,0.08) 0%, transparent 50%);
+    }
+    .success-container {
+      text-align: center;
+      padding: 40px 24px;
+      max-width: 500px;
+      width: 100%;
+    }
+    .success-icon {
+      width: 100px; height: 100px; border-radius: 50%;
+      background: rgba(0,230,118,0.1); border: 2px solid rgba(0,230,118,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 30px; font-size: 44px; color: var(--green);
+      animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes scaleIn {
+      0% { transform: scale(0); opacity: 0; }
+      60% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700;
+      letter-spacing: -0.5px; margin-bottom: 12px;
+    }
+    .amount-invested {
+      font-family: 'Space Grotesk', sans-serif; font-size: 56px; font-weight: 700;
+      letter-spacing: -1px; color: var(--green); margin-bottom: 8px;
+    }
+    .asset-label {
+      font-size: 14px; color: #8B8F96; margin-bottom: 30px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      padding: 8px 20px; border-radius: 50px; display: inline-block;
+    }
+    .progress-section {
+      background: rgba(22,24,30,0.75); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.07); border-radius: 16px;
+      padding: 20px; margin-bottom: 30px;
+    }
+    .progress-label {
+      font-size: 11px; color: #6B7280; text-transform: uppercase;
+      letter-spacing: 0.8px; margin-bottom: 10px; display: flex; justify-content: space-between;
+    }
+    .progress-bar {
+      height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; margin-bottom: 8px;
+    }
+    .progress-fill {
+      height: 100%; background: var(--gradient-green); border-radius: 4px;
+      transition: width 2s ease; width: 0%;
+    }
+    .progress-percent {
+      font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: var(--green);
+    }
+    .details-row {
+      display: flex; justify-content: space-between; padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 13px;
+    }
+    .details-row .label { color: #6B7280; }
+    .details-row .value { font-weight: 600; }
+    .btn {
+      padding: 14px 30px; border-radius: 12px; font-weight: 600; font-size: 14px;
+      cursor: pointer; transition: all 0.3s ease; border: none; text-decoration: none;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      letter-spacing: 0.4px; text-transform: uppercase; font-family: 'Inter', sans-serif;
+      min-height: 48px; min-width: 200px;
+    }
+    .btn-red { background: var(--gradient-red); color: #FFF; box-shadow: 0 8px 25px rgba(232,33,39,0.3); }
+    .btn-red:hover { transform: translateY(-2px); box-shadow: 0 14px 35px rgba(232,33,39,0.45); }
+    @media (max-width: 400px) {
+      .amount-invested { font-size: 40px; }
+      h1 { font-size: 26px; }
+      .success-icon { width: 80px; height: 80px; font-size: 34px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="success-container">
+    <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+    <h1>Investment Successful</h1>
+    <div class="amount-invested" id="displayAmount">$0.00</div>
+    <div class="asset-label"><i class="fas fa-chart-line"></i> <span id="displayAsset">Asset</span></div>
+    <div class="progress-section">
+      <div class="progress-label"><span>Investment Progress</span><span class="progress-percent" id="progressPercent">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="details-row"><span class="label">Status</span><span class="value" style="color:#00E676;"><i class="fas fa-circle" style="font-size:6px;"></i> Confirmed</span></div>
+      <div class="details-row"><span class="label">Date</span><span class="value" id="displayDate"></span></div>
+      <div class="details-row"><span class="label">Transaction ID</span><span class="value" style="font-family:monospace; font-size:11px;" id="displayTxId"></span></div>
+    </div>
+    <a href="dashboard.html" class="btn btn-red"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+  </div>
+
+  <script>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const asset = params.get('asset') || 'BTC';
+      const amount = parseFloat(params.get('amount')) || 0;
+      const fc = (a) => '$' + a.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+      document.getElementById('displayAmount').textContent = fc(amount);
+      document.getElementById('displayAsset').textContent = asset;
+      document.getElementById('displayDate').textContent = new Date().toLocaleString([], {month:'short', day:'numeric', year:'numeric', hour:'2-digit', minute:'2-digit'});
+      document.getElementById('displayTxId').textContent = 'TXN-' + Date.now().toString(36).toUpperCase();
+
+      setTimeout(() => {
+        document.getElementById('progressFill').style.width = '100%';
+        document.getElementById('progressPercent').textContent = '100%';
+      }, 300);
+    })();
+  </script>
+</body>
+</html>
